@@ -1,0 +1,21 @@
+<% layout('./layouts/boilerplate') %>
+<% for(let post of posts) { %>
+<div class="card">
+    <div class="row">
+        <div class="col-md-4">
+            <% if(post.images.length) { %>
+                <img class="img-fluid" src="<%=post.images[0].url%>" alt="">
+            <% } else { %>
+            <img class="img-fluid" src="https://res.cloudinary.com/dmhxssqb6/image/upload/v1674839386/yj7isvtowzd7r8orucag.jpg" alt="">
+            <% } %>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><%=post.title%></h5>
+                <p class="card-text"><%=post.post%></p>
+                <a href="/posts/<%=post._id%>" class="btn btn-primary">View <%=post.title%></a>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
