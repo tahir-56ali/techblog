@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <h1 class="text-center">Edit Post</h1>
-        <form action="/posts" method="POST" novalidate class="validated-form">
+        <form action="/posts/<%=post._id%>?_method=PUT" method="POST" novalidate class="validated-form">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control" type="text" value="<%=post.title%>" required name="post[title]" id="title" placeholder="Enter Title">
@@ -22,8 +22,8 @@
             </div> -->
             <div class="mb-3">
                 <button class="btn btn-success">Update Post</button>
-                <a href="/posts/<%=post._id%>" class="btn btn-primary">Cancel</a>
             </div>
         </form>
+        <a href="/posts/<%=post._id%>">Back To Post</a>
     </div>
 </div>

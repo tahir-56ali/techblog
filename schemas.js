@@ -6,3 +6,7 @@ module.exports.postsValidationSchema = Joi.object({
         post: Joi.string().required()
     }).required()
 });
+
+module.exports.commentsValidationSchema = Joi.object({
+    comment: Joi.string().min(3).required()
+});

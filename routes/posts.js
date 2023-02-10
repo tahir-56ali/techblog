@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {validatePost} = require('../middleware');
+const { validatePost, isLoggedIn, isAuthor } = require('../middleware');
 const catchAsync = require('../utils/catchAsync');
 const Post = require('../models/post');
 const posts = require('../controllers/posts');
@@ -15,26 +15,15 @@ const posts = require('../controllers/posts');
 
 router.route('/')
     .get(catchAsync(posts.index))
-    .post(validatePost, catchAsync(posts.createPost));
+    .post(isLoggedIn, validatePost, catchAsync(posts.createPost));
 
-router.get('/new', (req, res) => {
-    res.render('posts/new');
-});
+router.get('/new', isLoggedIn, posts.renderNewForm);
 
-router.get('/:id', catchAsync(posts.showPost));
+router.route('/:id')
+    .get(catchAsync(posts.showPost))
+    .put(isLoggedIn, isAuthor, validatePost, catchAsync(posts.updatePost))
+    .delete(isLoggedIn, isAuthor, catchAsync(posts.deletePost));
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const post = await Post.findById(id);
-    res.render('posts/edit', { post });
-}));
-
-router.put('/:id', (req, res) => {
-    res.send("update post");
-});
-
-router.delete('/:id', (req, res) => {
-    res.send("delte post");
-});
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(posts.renderEditForm));
 
 module.exports = router;
