@@ -1,6 +1,5 @@
 const { postsValidationSchema, commentsValidationSchema } = require('./schemas');
 const ExpressError = require('./utils/ExpressError');
-const path = require('path');
 const Post = require('./models/post');
 const Comment = require('./models/comment');
 
@@ -16,6 +15,7 @@ module.exports.validatePost = (req, res, next) => {
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.user) {
+        req.session.returnTo = req.originalUrl;
         req.flash('error', 'You must be login');
         return res.redirect('/login');
     }

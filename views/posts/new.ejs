@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <h1 class="text-center">New Post</h1>
-        <form action="/posts" method="POST" novalidate class="validated-form">
+        <form action="/posts" method="POST" novalidate enctype="multipart/form-data" class="validated-form">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control" type="text" required name="post[title]" id="title" placeholder="Enter Title">
@@ -17,9 +17,12 @@
                     Looks good!
                 </div>
             </div>
-            <!-- <div class="mb-3">
-                <label for=""></label>
-            </div> -->
+            <div class="mb-3">
+                <div class="custom-file">
+                    <label class="custom-file-label" for="image">Choose image(s)...</label>
+                    <input type="file" id="image" name="image" class="custom-file-input form-control" multiple>
+                </div>
+            </div>
             <div class="mb-3">
                 <button class="btn btn-success">Create Post</button>
             </div>
